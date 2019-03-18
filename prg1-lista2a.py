@@ -49,18 +49,45 @@ def testa_lados(a,b,c):
 def ano_bissexto(ano):
     ''' Determine se um ano é bissexto'''
 
-    if ano / 4 == int:
+    if ano % 100 != 0 and ano % 4 == 0 or ano % 400 == 0:
         return True
-    if ano / 100 != int:
-        return True
-    if ano / 4 != int:
+    else:
         return False
-
 
 def data_valida(data):
     '''Valida data. Recebe uma string no formato dd/mm/aaaa e informa
     um valor lógico indicando se a data é válida ou não.'''
 
+    arr = data.split("/")
+
+    dia = arr[0]
+    mes = arr[1]
+    ano = arr[2]
+
+    print(arr)
+
+    if ano != '0000':
+        if mes == '01' or mes == '03' or mes == '05' or mes == '07' or mes == '08' or mes == '10' or mes == '12':
+            if dia <= '31':
+                return True
+
+        if mes == '04' or mes == '06' or mes == '09' or mes == '11':
+            if dia <= '30':
+                return True
+
+        if mes == '02':
+            if ano % 100 != 0 and ano % 4 == 0 or ano % 400 == 0:
+                if dia <= '29':
+                    return True
+
+            if dia <= '28':
+                return True
+
+        else:
+            return False
+
+    else:
+        return False
 
 def maior3(a,b,c):
     ''' Recebe tres valores, e retorna o maior dos tres'''
