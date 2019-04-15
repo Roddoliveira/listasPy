@@ -59,13 +59,12 @@ def data_valida(data):
     '''Valida data. Recebe uma string no formato dd/mm/aaaa e informa
     um valor lógico indicando se a data é válida ou não.'''
 
-    arr = data.split("/")
-
-    dia = arr[0]
-    mes = arr[1]
-    ano = arr[2]
-
-    print(arr)
+    dia = data[0:2]
+    mes = data[3:5]
+    ano = data[6:11]
+    print(dia)
+    print(mes)
+    print(ano)
 
     tipo1 = '01', '03', '05', '07', '08', '10', '12'
     tipo2 = '04', '06', '09', '11'
@@ -81,13 +80,14 @@ def data_valida(data):
                 return True
 
     if mes == '02':
-        if ano_bissexto(ano):
+
+        if ano_bissexto(int(ano)):
             if dia <= '29':
                 return True
-
         if dia <= '28':
             return True
-
+        if dia <= '29':
+            return False
     else:
         return False
 
@@ -105,6 +105,13 @@ def maior3(a, b, c):
 def menor3(a, b, c):
     ''' Recebe tres valores, e retorna o menor dos tres'''
 
+    if a < b and a < c:
+        return a
+    if b < a and b < c:
+        return b
+    if c < b and c < a:
+        return c
+
 
 def salario(dinheiro_horas, horas_mensais):
     ''' Recebe quanto ganha por hora e quantas horas trabalho ao mês,
@@ -114,12 +121,22 @@ def salario(dinheiro_horas, horas_mensais):
     - IR é 11% do salário bruto
     - Sindicato é 5% do salário bruto'''
 
+    bruto = dinheiro_horas * horas_mensais
+    inss = 0.08 * bruto
+    ir = 0.11 * bruto
+    sin = 0.05 * bruto
+    liquido = bruto - inss - ir - sin
+    return liquido
+
 
 def tinta(metros_pintar):
     ''' Recebe quanto metros quadrados precisa pintar,
     e retorna a quantidade de latas de tinta a comprar.
     A cobertura da tinta é de 3 metros por litro de tinta
     Cada lata possui 18 litros de tinta'''
+
+    x = (metros_pintar / 3) / 18
+    return round(x + 0.5)
 
 
 def acrescimo_nota_bb(nota_sozinho, nota_com_ajuda):
@@ -128,6 +145,13 @@ def acrescimo_nota_bb(nota_sozinho, nota_com_ajuda):
      brother recebera em sua nota pela ajuda.
      O acréscimo é de 1/4 da diferença das notas, se for positivo'''
 
+    melhora = nota_com_ajuda - nota_sozinho
+    acrescimo = 0.25 * melhora
+
+    if round(acrescimo, 1) > 0:
+        return round(acrescimo, 1)
+    else:
+        return 0
 
 # Área de testes: só mexa aqui se souber o que está fazendo!
 acertos = 0
