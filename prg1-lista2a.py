@@ -49,44 +49,34 @@ def testa_lados(a, b, c):
 def ano_bissexto(ano):
     ''' Determine se um ano é bissexto'''
 
-    if ano % 100 != 0 and ano % 4 == 0 or ano % 400 == 0:
-        return True
-    else:
-        return False
+    return ano % 100 != 0 and ano % 4 == 0 or ano % 400 == 0
+
 
 
 def data_valida(data):
     '''Valida data. Recebe uma string no formato dd/mm/aaaa e informa
     um valor lógico indicando se a data é válida ou não.'''
 
-    dia = data[0:2]
-    mes = data[3:5]
-    ano = data[6:11]
-    print(dia)
-    print(mes)
-    print(ano)
+    dia = int(data[0:2])
+    mes = int(data[3:5])
+    ano = int(data[6:11])
 
-    tipo1 = '01', '03', '05', '07', '08', '10', '12'
-    tipo2 = '04', '06', '09', '11'
-
-    for x in tipo1:
-        if mes == x:
-            if dia <= '31' and ano != '0000':
-                return True
-
-    for x in tipo2:
-        if mes == x:
-            if dia <= '30' and ano != '0000':
-                return True
-
-    if mes == '02':
-
-        if ano_bissexto(int(ano)):
-            if dia <= '29':
-                return True
-        if dia <= '28':
+    if mes in [1, 3, 5, 7, 8, 10, 12]:
+        if dia <= 31 and ano != 0:
             return True
-        if dia <= '29':
+
+    if mes in [4, 6, 9, 11]:
+        if dia <= 30 and ano != 0:
+            return True
+
+    if mes == 2:
+
+        if ano_bissexto(ano):
+            if dia <= 29:
+                return True
+        if dia <= 28:
+            return True
+        if dia <= 29:
             return False
     else:
         return False
@@ -97,9 +87,9 @@ def maior3(a, b, c):
 
     if a > b and a > c:
         return a
-    if b > c and b > a:
+    if b > c:
         return b
-    if c > a and c > b:
+    else:
         return c
 
 def menor3(a, b, c):
@@ -107,11 +97,10 @@ def menor3(a, b, c):
 
     if a < b and a < c:
         return a
-    if b < a and b < c:
+    if b < c:
         return b
-    if c < b and c < a:
+    else:
         return c
-
 
 def salario(dinheiro_horas, horas_mensais):
     ''' Recebe quanto ganha por hora e quantas horas trabalho ao mês,
@@ -266,3 +255,4 @@ if __name__ == '__main__':
                                                         total - acertos, float(acertos * 10) / total))
     if total == acertos:
         print("Parabéns, seu programa rodou sem falhas!")
+
